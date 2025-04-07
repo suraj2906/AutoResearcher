@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import LoadingAnimation from './components/LoadingAnimation';
+import React from 'react';
 
 export default function ResearchPage() {
   const [prompt, setPrompt] = useState('');
@@ -167,6 +168,9 @@ export default function ResearchPage() {
                     </motion.h2>
                   );
                 }
+
+                const parts = line.split(/(\*\*[^*]+\*\*)/g);
+
                 return (
                   <motion.p
                   key={`p-${index}`}
@@ -175,7 +179,12 @@ export default function ResearchPage() {
                   transition={{ delay: 0.3 + index * 0.05 }} // Staggered delay
                   className="mb-4"
                 >
-                  {line}
+                  {parts.map((part, i) => {
+          if (part.startsWith('**') && part.endsWith('**')) {
+            return <strong key={i}>{part.slice(2, -2)}</strong>;
+          }
+          return <React.Fragment key={i}>{part}</React.Fragment>;
+        })}
                 </motion.p>
                 );
               })}
