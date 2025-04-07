@@ -45,10 +45,10 @@ async def research(query: Query):
         try:
             for section in sections:
                 yield f"\n## {section}\n"
-                prompt = f"Write the {section} of a research paper on the topic: {query.prompt}"
-                for step in agent.stream({"messages": prompt}, stream_mode="values"):
-                    yield step["messages"][-1].content + "\n"
-                    await asyncio.sleep(0.05)
+                prompt = f"Write the {section} of a research paper on the topic: {query.prompt}. Do not include the subtitle"
+                result = agent.invoke({"messages": prompt})
+                yield result["messages"][-1].content + "\n"
+                await asyncio.sleep(0.1)
         except Exception as e:
             yield f"Error: {str(e)}"
 
