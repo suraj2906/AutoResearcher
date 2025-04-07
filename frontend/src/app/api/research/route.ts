@@ -2,7 +2,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 // Increase timeout to 60 seconds
-export const maxDuration = 120; // for Edge functions in seconds
+export const maxDuration = 60; // for Edge functions in seconds
 export const dynamic = 'force-dynamic'; // Disable caching
 
 export async function POST(request: NextRequest) {
